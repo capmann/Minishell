@@ -48,13 +48,11 @@ void	ft_free_data(t_list *liste)
 	t_data	*tmp2;
 
 	tmp = liste->prems;
-	tmp2 = NULL;
 	if (!liste)
 		return ;
 	while (tmp)
 	{
-		if (tmp->next)
-			tmp2 = tmp->next;
+		tmp2 = tmp->next;
 		secure_free((void **)&tmp->path);
 		secure_free((void **)&tmp->infile);
 		secure_free((void **)&tmp->outfile);
