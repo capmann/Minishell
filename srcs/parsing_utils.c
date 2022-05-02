@@ -19,7 +19,7 @@ int	is_closed_quotes(char *cmd, int index)
 	i = index - 1;
 	while (cmd[++i])
 	{
-		if (cmd[i] == 39 && check_in_quote(cmd, cmd[i], i) == 0)
+		if (cmd[i] == 39)
 		{
 			i += 1;
 			while (cmd[i] && cmd[i] != 39)
@@ -28,7 +28,7 @@ int	is_closed_quotes(char *cmd, int index)
 				return (SIMPLE_QUOTE);
 			return (EXIT_FAILURE);
 		}
-		if (cmd[i] == 34 && check_in_quote(cmd, cmd[i], i) == 0)
+		if (cmd[i] == 34)
 		{
 			i += 1;
 			while (cmd[i] && cmd[i] != 34)
@@ -54,10 +54,10 @@ int	get_redirect(char *cmd, t_data *data)
 	{
 		if (cmd[i] == '<')
 			redirect[0] = 1;
-		if (cmd[i] == '>' && check_in_quote(cmd, cmd[i], i) == 0)
+		if (cmd[i] == '>' && char_in_quote(cmd, cmd[i], i) == 0)
 		{
 			if (cmd[i + 1] && cmd[i + 1] == '>'
-				&& check_in_quote(cmd, cmd[i + 1], i + 1) == 0 && i++)
+				&& char_in_quote(cmd, cmd[i + 1], i + 1) == 0 && i++)
 			{
 				redirect[1] = 1;
 				redirect[2] = 1;

@@ -14,24 +14,29 @@
 
 int	check_in_quote(char *cmd, char c, int index)
 {
-	int	i;
-	int	quote;
-	int	pos;
-	int	*tab;
+	int		i;
+	int		j;
+	int		quote;
+	int		pos;
+	char	*tab;
 
 	if (is_quote(c) == EXIT_FAILURE)
 		return (char_in_quote(cmd, c, index));
-	pos = quote_pos(cmd, c, 0, 0);
-	if (pos == 1 || pos == quote_pos(cmd, c, 1, 0))
+	pos = quote_pos(cmd, c, index);
+	if (pos == 1 || pos == count_quotes(cmd))
 		return (EXIT_SUCCESS);
 	tab = parsing_quotes(cmd);
 	if (!tab)
 		return (EXIT_SUCCESS);
 	i = -1;
-	while (tab[++i])
+	while (tab[++i] && i < (pos - 1))
 	{
-		quote = is_closed_quotes(cmd, i);
-		if (tab[i] != c && i < pos && quote > 1)
+		j = i + 1;
+		quote = is_closed_quotes(tab, i);
+		if (quote > 1)
+			while (tab[j] && tab[j] != quote)
+				j++;
+		if (tab[i] != c && quote > 1 && j > (pos - 1))
 		{
 			secure_free((void **)&tab);
 			return (quote);
@@ -41,21 +46,21 @@ int	check_in_quote(char *cmd, char c, int index)
 	return (EXIT_SUCCESS);
 }
 
-int	*parsing_quotes(char *s)
+char	*parsing_quotes(char *s)
 {
-	int	j;
-	int	k;
-	int	*tab;
+	int		j;
+	int		k;
+	char	*tab;
 
 	j = -1;
 	k = -1;
 	if (!s || count_quotes(s) == 0)
 		return (NULL);
-	tab = malloc(sizeof(int) * (count_quotes(s) + 1));
+	tab = malloc(sizeof(char) * (count_quotes(s) + 1));
 	while (s[++j])
 		if (s[j] == 34 || s[j] == 39)
 			tab[++k] = s[j];
-	tab[k] = 0;
+	tab[++k] = 0;
 	return (tab);
 }
 
@@ -98,7 +103,7 @@ int	null_pipe(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (cmd[i] == '|')
+		if (cmd[i] == '|' && char_in_quote(cmd, cmd[i], i) == 0)
 		{
 			while (cmd[i] && !ft_isalnum(cmd[i]))
 				i++;

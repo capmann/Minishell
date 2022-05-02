@@ -24,7 +24,7 @@ int	count_cmds(char *cmd)
 	while (cmd[++i])
 	{
 		if (cmd[i] && cmd[i] == '|'
-			&& check_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
+			&& char_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
 			k++;
 	}
 	return (k);

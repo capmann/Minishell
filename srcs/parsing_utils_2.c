@@ -19,9 +19,9 @@ int	verify_quotes(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (cmd[i] == 92 && check_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
+		if (cmd[i] == 92 && char_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		if (cmd[i] == ';' && check_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
+		if (cmd[i] == ';' && char_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

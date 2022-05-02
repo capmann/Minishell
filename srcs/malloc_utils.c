@@ -85,7 +85,8 @@ void	skip_quotes(t_data *data, int arg)
 		while (data->cmd[i][++j])
 		{
 			if (is_quote(data->cmd[i][j]) == EXIT_FAILURE
-			|| check_in_quote(data->cmd[i], data->cmd[i][j], j) > 0)
+			|| (is_quote(data->cmd[i][j]) == EXIT_SUCCESS
+			&& check_in_quote(data->cmd[i], data->cmd[i][j], j) > 0))
 				str[++k] = data->cmd[i][j];
 		}
 		k++;

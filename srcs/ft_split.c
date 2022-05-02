@@ -20,7 +20,7 @@ size_t	get_n_word(const char *s, char c, int n, int mode)
 	i = 0;
 	while (s[n])
 	{
-		if (is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && check_in_quote((char *)s, s[n], n) == 0 && ++n)
+		if (is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && ++n)
 		{
 			quote = is_quote(s[n - 1]);
 			while (s[n] && s[n] != quote)

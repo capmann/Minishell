@@ -28,7 +28,7 @@ void	get_expansion(t_data *data, t_list *list)
 		index = ft_search_index(data->cmd[i], '$');
 		if (a != 0 && ft_strlen(a) != 1 && (ft_isalnum(data->cmd[i][index + 1])
 			|| data->cmd[i][index + 1] == '"' || data->cmd[i][index + 1] == '?')
-			&& check_in_quote(data->cmd[i], '$', index) != SIMPLE_QUOTE)
+			&& char_in_quote(data->cmd[i], '$', index) != SIMPLE_QUOTE)
 		{
 			var = cat_expansion(data->cmd[i], list);
 			secure_free((void **)&data->cmd[i]);

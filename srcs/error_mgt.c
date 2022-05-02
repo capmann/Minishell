@@ -89,12 +89,13 @@ int	syntax_error(char *cmd)
 
 int	pipe_errors(char *cmd, int i)
 {
-	if (cmd[i] == '|')
+	if (cmd[i] == '|' && char_in_quote(cmd, cmd[i], i) == 0)
 	{
 		i++;
 		while (cmd[i] && cmd[i] == ' ')
 			i++;
-		if (cmd[i] && (cmd[i] == '|' || cmd[i] == ';'))
+		if (cmd[i] && (cmd[i] == '|' || cmd[i] == ';')
+			&& char_in_quote(cmd, cmd[i], i) == 0)
 			return (1);
 	}
 	return (0);

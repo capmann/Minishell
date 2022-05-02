@@ -56,23 +56,21 @@ void	ignore_redirect(t_list *list)
 	}
 }
 
-int	quote_pos(char *cmd, char c, int mode, int index)
+int	quote_pos(char *cmd, char c, int index)
 {
 	int	i;
 	int	k;
 
-	i = index - 1;
+	i = -1;
 	k = 0;
-	while (cmd[++i])
+	while (cmd[++i] && i <= index)
 	{
 		if (is_quote(cmd[i]) == EXIT_SUCCESS)
 			k++;
-		if (cmd[i] == c && mode != 1)
+		if (cmd[i] == c && i == index)
 			break ;
 	}
-	if (mode == 0)
-		return (k);
-	return (i);
+	return (k);
 }
 
 int	char_in_quote(char *cmd, char c, int index)
