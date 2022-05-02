@@ -16,7 +16,7 @@ int	count_cmds(char *cmd)
 {
 	int	i;
 	int	k;
-eco
+
 	k = 1;
 	i = -1;
 	if (!cmd)
@@ -39,8 +39,7 @@ int	is_quote(char c)
 
 int	check_valid_cmd(char *cmd, t_data *data, t_list *list)
 {
-	int		i;
-	char	*tmp;
+	int			i;
 
 	if (is_builtin(data, list) == 1)
 		return (EXIT_SUCCESS);
@@ -51,16 +50,14 @@ int	check_valid_cmd(char *cmd, t_data *data, t_list *list)
 		i++;
 	if (cmd[i] == ' ' && !data->redirect)
 	{
-		tmp = ft_substr(cmd, 0, i);
 		if (!data->path)
 		{
-			secure_free((void **)&tmp);
 			secure_free((void **)&data->path);
 			return (EXIT_FAILURE);
 		}
-		secure_free((void **)&tmp);
 	}
-	if (!data->path && data->cmd[0][0] != '>' && data->cmd[0][0] != '<')
+	if (!data->path && data->cmd[0][0] != '>' && data->cmd[0][0] != '<'
+		&& data->cmd[0][0] != '.')
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
