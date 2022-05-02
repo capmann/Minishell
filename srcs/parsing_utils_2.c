@@ -23,8 +23,6 @@ int	verify_quotes(char *cmd)
 			return (EXIT_FAILURE);
 		if (cmd[i] == ';' && check_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
 			return (EXIT_FAILURE);
-		if (is_closed_quotes(cmd, 0) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

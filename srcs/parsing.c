@@ -16,25 +16,16 @@ int	count_cmds(char *cmd)
 {
 	int	i;
 	int	k;
-
+eco
 	k = 1;
-	i = 0;
+	i = -1;
 	if (!cmd)
 		return (0);
-	while (cmd[i])
+	while (cmd[++i])
 	{
-		if (is_quote(cmd[i]) == EXIT_SUCCESS)
-		{
-			i++;
-			while (cmd[i] && is_quote(cmd[i]) == EXIT_FAILURE)
-				i++;
-			if (!cmd[i])
-				return (0);
-		}
 		if (cmd[i] && cmd[i] == '|'
-			&& char_in_quote(cmd, '|', i) == EXIT_SUCCESS)
+			&& check_in_quote(cmd, cmd[i], i) == EXIT_SUCCESS)
 			k++;
-		i++;
 	}
 	return (k);
 }
@@ -103,7 +94,7 @@ t_data	*parsing(char *cmd, t_list *list)
 	if (verify_cmd(cmd) == EXIT_FAILURE)
 		return (NULL);
 	if (null_pipe(cmd) == EXIT_FAILURE)
-	{	
+	{
 		error_code(2, 0, list);
 		return (NULL);
 	}
@@ -118,6 +109,6 @@ t_data	*parsing(char *cmd, t_list *list)
 		}
 		return (list->prems);
 	}
-	ft_free_data(list);
+	printf("coucou\n");
 	return (NULL);
 }
