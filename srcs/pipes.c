@@ -100,10 +100,9 @@ char	*heredoc(t_data *data)
 	char	*output;
 	char	*test;
 
-	tmp = NULL;
 	output = NULL;
-	len = 0;
 	tmp = readline("> ");
+	len = check_biggest(tmp, data->infile);
 	while (ft_strncmp(tmp, data->infile, len) != 0)
 	{
 		test = ft_strjoin(output, tmp);
