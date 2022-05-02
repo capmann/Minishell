@@ -145,7 +145,6 @@ int		quote_pos(char *cmd, char c, int mode, int index);
 int		char_in_quote(char *cmd, char c, int index);
 char	*skip_spaces(char *cmd);
 char	*quote_mgt(const char *s, int end);
-int		skip_n(char *cmd);
 
 //builtins functions
 void	my_echo(t_data *data);

@@ -87,15 +87,3 @@ char	*access_path(char **tmp_path, char *tmp, t_data *data)
 	free_malloc(tmp_path, data->cmd[0], 1);
 	return (NULL);
 }
-
-int	skip_n(char *cmd)
-{
-	int	i;
-
-	i = 1;
-	while (cmd[i] && cmd[i] == 'n')
-		i++;
-	if (!cmd[i])
-		return (0);
-	return (1);
-}

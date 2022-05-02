@@ -90,14 +90,14 @@ char	*clear_tab(char *str)
 		return (NULL);
 	if (str)
 	{
-		while ((str[i] == ' ' || str[i] == '\t') && str[i])
+		while (str[i] == ' ' && str[i])
 			i++;
 		tmp = ft_substr(str, i, ft_strlen(str) - i);
 		secure_free((void **)&str);
 	}
 	k = ft_strlen(tmp) - 1;
 	i = 0;
-	while (tmp[k] && (tmp[k] == ' ' || tmp[k] == '\t') && k--)
+	while (tmp[k] && tmp[k] == ' ' && k--)
 		i++;
 	new = ft_substr(tmp, 0, ft_strlen(tmp) - i);
 	secure_free((void **)&tmp);

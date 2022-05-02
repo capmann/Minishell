@@ -116,6 +116,5 @@ int	close_and_open_files(char *tmp, int i, int k, t_data *data)
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 00700);
 	close(fd);
 	secure_free((void **)&file);
-	close(fd);
 	return (fd);
 }

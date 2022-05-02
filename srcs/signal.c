@@ -23,10 +23,10 @@ void	sighandler(int signum)
 
 	if (signum == SIGQUIT)
 	{
-		ft_putstr_fd("\b\b  \b\b", 1);
+	  	ft_putstr_fd("\b\b  \b\b", 1);
 		tcgetattr(0, &termios_new);
 		tcgetattr(0, &termios_old);
-		termios_new.c_lflag &= (ISIG | ECHOCTL);
+		termios_new.c_lflag &= ~(ISIG | ECHOCTL);
 		tcsetattr(0, 0, &termios_new);
 		tcsetattr(0, 0, &termios_old);
 	}

@@ -18,11 +18,7 @@ int	main(int ac, char **av, char **envp)
 	t_list				*list;
 	struct sigaction	act;
 
-	if (ac != 1)
-	{
-		ft_putstr_fd("Error: too many arguments\n", 1);
-		return (0);
-	}
+	(void)ac;
 	(void)av;
 	ft_memset(&act, 0, sizeof(act));
 	set_sigaction(act);

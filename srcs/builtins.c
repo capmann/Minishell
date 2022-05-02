@@ -16,7 +16,7 @@ void	my_echo(t_data *data)
 {
 	int	i;
 
-	if (ft_strncmp(data->cmd[1], "-n", 2) == 0 && skip_n(data->cmd[1]) == 0)
+	if (ft_strncmp(data->cmd[1], "-n", 3) == 0)
 	{
 		if (data->nb_args == 2)
 			return ;
