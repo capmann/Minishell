@@ -16,7 +16,7 @@ int	count_cmds(char *cmd)
 {
 	int	i;
 	int	k;
-eco
+
 	k = 1;
 	i = -1;
 	if (!cmd)
@@ -109,6 +109,5 @@ t_data	*parsing(char *cmd, t_list *list)
 		}
 		return (list->prems);
 	}
-	printf("coucou\n");
 	return (NULL);
 }
