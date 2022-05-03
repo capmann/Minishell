@@ -102,6 +102,7 @@ void	my_export_arg(t_data *data, t_list *list)
 		env = malloc(sizeof(*env));
 		if (tmp == NULL)
 		{
+			check_var_exist(list, tmp, data->cmd[i]);
 			env->env_var = ft_strdup(data->cmd[i]);
 			env->name = ft_strdup(data->cmd[i]);
 			env->value = ft_strdup("");
