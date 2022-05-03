@@ -69,7 +69,7 @@ void	exec(t_list *list, t_data *data)
 	data = list->prems;
 	while (data)
 	{
-		waitpid(data->pid, &exit_status, 0);
+		waitpid(data->pid, &exit_status, 0);	
 		data = data->next;
 	}
 	if (WIFEXITED(exit_status))
