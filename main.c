@@ -12,7 +12,7 @@
 
 #include "includes/minishell.h"
 
-pid_t	g_pid = 0;
+pid_t	g_pid;
 
 int	main(int ac, char **av, char **envp)
 {
@@ -39,5 +39,5 @@ int	main(int ac, char **av, char **envp)
 	}
 	ft_free_list(list);
 	rl_clear_history();
-	return (list->exit_code);
+	return (g_pid);
 }

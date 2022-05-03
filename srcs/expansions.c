@@ -99,7 +99,7 @@ char	*find_env_var(t_list *list, char *str)
 
 	env = list->first;
 	if (str && str[0] == '?')
-		return (ft_itoa(list->exit_code));
+		return (ft_itoa(g_pid));
 	while (env)
 	{
 		if (ft_strncmp(env->name, str, ft_strlen(env->name) - 1) == 0)

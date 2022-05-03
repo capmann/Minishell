@@ -53,7 +53,7 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 		close(list->prev_pdes);
 	if (list->pipe == 0)
 		ft_free_data(list);
-	exit(list->exit_code);
+	exit(g_pid);
 }
 
 void	parent_process(t_list *list, int *pdes)
@@ -85,7 +85,7 @@ void	run_heredoc(t_data *data)
 		close(pdes[0]);
 		ft_putstr_fd(doc, 1);
 		close(pdes[1]);
-		exit(0);
+		exit(g_pid);
 	}
 	dup2(pdes[0], STDIN_FILENO);
 	close(pdes[1]);

@@ -35,6 +35,7 @@ void	print_export(t_list *list)
 		ft_putchar_fd('\n', 1);
 		env = env->next;
 	}
+	g_pid = 0;
 }
 
 void	check_var_exist(t_list *list, char *tmp, char *cmd)
@@ -88,11 +89,11 @@ char	*cd_args(t_list *list, char *str)
 	{
 		if (env->value)
 			return (env->value);
-		list->exit_code = 0;
+		g_pid = 0;
 		return (NULL);
 	}
 	ft_putstr_fd("cd: HOME not set\n", 1);
-	list->exit_code = 1;
+	g_pid = 1;
 	return (NULL);
 }
 

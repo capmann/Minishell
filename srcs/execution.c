@@ -73,7 +73,7 @@ void	exec(t_list *list, t_data *data)
 		data = data->next;
 	}
 	if (WIFEXITED(exit_status))
-		list->exit_code = WEXITSTATUS(exit_status);
+		g_pid = WEXITSTATUS(exit_status);
 	return ;
 }
 

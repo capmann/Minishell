@@ -80,7 +80,7 @@ t_list	*init(char **envp)
 	ft_memset(list, 0, sizeof(*list));
 	list->first = NULL;
 	list->prems = NULL;
-	list->exit_code = 0;
+	g_pid = 0;
 	list->pipe = 0;
 	duplicate_env(envp, list);
 	return (list);

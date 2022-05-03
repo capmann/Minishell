@@ -73,12 +73,10 @@ typedef struct s_list
 {
 	t_env	*first;
 	t_data	*prems;
-	int		exit_code;
 	int		pipe;
 	int		prev_pdes;
 	int		stdin;
 	int		stdout;
-	int		signal;
 }		t_list;
 
 // parsing functions
@@ -169,6 +167,7 @@ char	*join_pieces(char **b, char *c, char *var);
 int		check_biggest(char *s1, char *s2);
 void	print_echo(char *cmd);
 char	*ft_strchr_exp(const char *s, int c);
+int		is_digit_arg(char *s);	
 
 //env management
 t_list	*init(char **envp);

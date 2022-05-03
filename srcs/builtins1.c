@@ -28,6 +28,7 @@ void	my_unset(t_list *list, t_data *data)
 		env = list->first;
 		unset_var(list, env, data->cmd[i], tmp);
 	}
+	g_pid = 0;
 }
 
 void	unset_var(t_list *list, t_env *env, char *cmd, t_env *tmp)

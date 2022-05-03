@@ -47,3 +47,16 @@ char	*quote_mgt(const char *s, int end)
 		end++;
 	return (ft_substr(s, 0, end + 1));
 }
+
+int	is_digit_arg(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+	}
+	return (1);
+}

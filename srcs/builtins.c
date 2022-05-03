@@ -37,6 +37,7 @@ void	my_echo(t_data *data)
 		ft_putstr_fd(data->cmd[i], 1);
 		ft_putchar_fd('\n', 1);
 	}
+	g_pid = 0;
 }
 
 void	my_cd(t_data *data, t_list *list)
@@ -52,7 +53,7 @@ void	my_cd(t_data *data, t_list *list)
 	else if (data->cmd[2])
 	{
 		ft_putstr_fd("cd: too many arguments\n", 1);
-		list->exit_code = 1;
+		g_pid = 1;
 		return ;
 	}
 	else if (data->cmd[1][0] == '-')
@@ -61,9 +62,11 @@ void	my_cd(t_data *data, t_list *list)
 		path = data->cmd[1];
 	if (chdir(path) == -1)
 	{
-		list->exit_code = 1;
+		g_pid = 1;
 		perror("cd");
 	}
+	else
+		g_pid = 0;
 	update_pwd(list);
 }
 
@@ -75,6 +78,7 @@ void	my_pwd(void)
 	{
 		ft_putstr_fd(path, 1);
 		ft_putchar_fd('\n', 1);
+		g_pid = 0;
 	}
 	else
 		perror("getcwd()");
@@ -94,6 +98,7 @@ void	my_env(t_list *list)
 		}
 		env = env->next;
 	}
+	g_pid = 0;
 }
 
 void	my_exit(t_list *list, t_data *data)
@@ -103,13 +108,18 @@ void	my_exit(t_list *list, t_data *data)
 		if (data->cmd[1] && data->cmd[2])
 		{
 			ft_putstr_fd("exit: too many arguments\n", 1);
-			list->exit_code = 1;
+			g_pid = 1;
 			return ;
 		}
+		else if (!is_digit_arg(data->cmd[1]))
+		{
+			ft_putstr_fd("exit: numeric argument required\n", 1);
+			g_pid = 2;
+		}
 		else if (data->cmd[1] && data->cmd[1][0] == '-' && !data->cmd[1][1])
-			list->exit_code = 255;
+			g_pid = 255;
 		else if (data->cmd[1])
-			list->exit_code = ft_atoi(data->cmd[1]);
+			g_pid = ft_atoi(data->cmd[1]);
 	}
 	ft_free_data(list);
 	if (list->prev_pdes)
@@ -117,5 +127,5 @@ void	my_exit(t_list *list, t_data *data)
 		close(list->prev_pdes);
 		close(STDIN_FILENO);
 	}
-	exit(list->exit_code);
+	exit(g_pid);
 }

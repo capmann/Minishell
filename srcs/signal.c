@@ -32,6 +32,7 @@ void	sighandler(int signum)
 	}
 	if (signum == SIGINT)
 	{
+		g_pid = 130;
 		ft_show_prompt();
 	}
 }
@@ -69,5 +70,5 @@ void	sig_backslash(int signum)
 void	sig_quit(int signum)
 {
 	(void)signum;
-	exit(0);
+	exit(g_pid);
 }

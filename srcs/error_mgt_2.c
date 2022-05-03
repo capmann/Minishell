@@ -14,7 +14,8 @@
 
 int	error_code(int exit_code, int error_code, t_list *list)
 {
-	list->exit_code = exit_code;
+	(void)list;
+	g_pid = exit_code;
 	if (exit_code == 126)
 		ft_putstr_fd("Permission denied\n", 1);
 	if (exit_code == 2)
