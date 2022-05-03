@@ -12,11 +12,12 @@
 
 #include "includes/minishell.h"
 
+pid_t	g_pid = 0;
+
 int	main(int ac, char **av, char **envp)
 {
 	char				*prompt;
 	t_list				*list;
-	struct sigaction	act;
 
 	if (ac != 1)
 	{
@@ -24,11 +25,10 @@ int	main(int ac, char **av, char **envp)
 		return (0);
 	}
 	(void)av;
-	ft_memset(&act, 0, sizeof(act));
-	set_sigaction(act);
 	list = init(envp);
 	while (42)
 	{
+		set_sigaction(0);
 		prompt = readline("Mimi_shell>> ");
 		if (ft_strlen(prompt) > 0)
 			add_history(prompt);

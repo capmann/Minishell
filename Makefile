@@ -48,7 +48,8 @@ SRCS	=	./main.c\
 			./srcs/error_mgt_2.c\
 			./srcs/execution.c\
 			./srcs/builtins_utils.c\
-			./srcs/split_utils.c
+			./srcs/split_utils.c\
+			./srcs/signal_2.c
 
 OBJS	=	${SRCS:.c=.o}
 

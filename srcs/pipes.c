@@ -19,6 +19,7 @@ pid_t	run_pipe(t_data *data, t_list *list, int *pdes)
 	if (list->pipe > 0)
 		pipe(pdes);
 	pid = fork();
+	disable_signals(pid);
 	if (pid == -1)
 		return (pid);
 	else if (pid == 0)

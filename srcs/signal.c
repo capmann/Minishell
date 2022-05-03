@@ -36,10 +36,18 @@ void	sighandler(int signum)
 	}
 }
 
-void	set_sigaction(struct sigaction act)
+void	set_sigaction(int sigh)
 {
+	struct sigaction	act;
+
+	ft_memset(&act, 0, sizeof(act));
 	sigemptyset(&act.sa_mask);
-	act.sa_handler = sighandler;
+	if (!sigh)
+		act.sa_handler = sighandler;
+	else if (sigh == 1)
+		act.sa_handler = SIG_DFL;
+	else
+		act.sa_handler = sigign;
 	sigaction(SIGQUIT, &act, NULL);
 	sigaction(SIGINT, &act, NULL);
 }

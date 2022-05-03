@@ -29,12 +29,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <stdbool.h>
 
 # define SIMPLE_QUOTE 39
 # define DOUBLE_QUOTE 34
 
 # define SIGINT  2
 # define SIGQUIT 3
+
+extern pid_t	g_pid;
 
 typedef struct s_data {
 	char			**cmd;
@@ -200,10 +203,12 @@ void	ft_free_data(t_list *liste);
 // signal functions
 void	sig_backslash(int signum);
 void	sig_quit(int signum);
-void	set_sigaction(struct sigaction act);
+void	set_sigaction(int enable);
 void	*ft_memset(void *b, int c, size_t len);
 int		handle_EOT(char *cmd);
 int		verify_cmd(char *cmd);
+void	disable_signals(int fork);
+void	sigign(int signum);
 
 //pipe implementation
 void	run_shell(t_list *list);
