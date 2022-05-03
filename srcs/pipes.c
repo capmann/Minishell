@@ -48,6 +48,7 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 		execve(data->path, data->cmd, NULL);
 		ft_putstr_fd(data->cmd[0], 1);
 		ft_putstr_fd(": Permission denied\n", 1);
+		g_pid = 2;
 	}
 	run_builtin(data, list);
 	if (list->pipe == 0 && list->prev_pdes != -1)
