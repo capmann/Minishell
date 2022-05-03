@@ -32,18 +32,18 @@ void	free_malloc(char **cmd, char *path, int mode)
 	i = -1;
 	if (mode == 1)
 	{
-		if (cmd && !cmd[0] && cmd[1])
+		if (!cmd[0] && cmd[1])
 		{
 			secure_free((void **)&cmd[0]);
 			i = 0;
 		}
-		while (cmd && cmd[++i])
+		while (cmd[++i])
 			secure_free((void **)&cmd[i]);
 		secure_free((void **)&cmd);
 	}
 	if (mode == 2)
 	{
-		while (cmd && cmd[++i])
+		while (cmd[++i])
 			secure_free((void **)&cmd[i]);
 		secure_free((void **)&cmd);
 		secure_free((void **)&path);

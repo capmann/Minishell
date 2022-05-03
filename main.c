@@ -19,11 +19,7 @@ int	main(int ac, char **av, char **envp)
 	char				*prompt;
 	t_list				*list;
 
-	if (ac != 1)
-	{
-		ft_putstr_fd("Error: too many arguments\n", 1);
-		return (0);
-	}
+	(void)ac;
 	(void)av;
 	list = init(envp);
 	while (42)

@@ -76,7 +76,7 @@ char	*access_path(char **tmp_path, char *tmp, t_data *data)
 	while (tmp_path[++i])
 	{
 		tmp = ft_strcat(tmp_path[i], data->cmd[0]);
-		if (tmp && access(tmp, F_OK & X_OK) == 0)
+		if (tmp && access(tmp, F_OK) == 0 && access(tmp, X_OK) == 0)
 		{
 			data->path = ft_strdup(tmp);
 			free_malloc(tmp_path, tmp, 2);
@@ -86,16 +86,4 @@ char	*access_path(char **tmp_path, char *tmp, t_data *data)
 	}
 	free_malloc(tmp_path, data->cmd[0], 1);
 	return (NULL);
-}
-
-int	skip_n(char *cmd)
-{
-	int	i;
-
-	i = 1;
-	while (cmd[i] && cmd[i] == 'n')
-		i++;
-	if (!cmd[i])
-		return (0);
-	return (1);
 }
