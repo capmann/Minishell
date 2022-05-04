@@ -39,7 +39,7 @@ void	ignore_redirect(t_list *list)
 	while (data)
 	{
 		i = -1;
-		while (data->cmd[++i])
+		while (data->cmd && data->cmd[++i])
 		{
 			if (data->cmd[i][0] == '>' || data->cmd[i][0] == '<')
 			{

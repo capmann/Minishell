@@ -64,7 +64,7 @@ void	ft_free_data(t_list *liste)
 
 char	*verify_path(t_data *data)
 {
-	if (data->cmd[0] && cmd_digit(data->cmd[0]) == EXIT_SUCCESS)
+	if (data->cmd && data->cmd[0] && cmd_digit(data->cmd[0]) == EXIT_SUCCESS)
 	{
 		if (access(data->cmd[0], F_OK | X_OK) == 0)
 			return (ft_strdup(data->cmd[0]));

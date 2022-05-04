@@ -27,6 +27,8 @@ int	check_parsing(char *cmd, t_list *list)
 {
 	t_data	*data;
 
+	if (!cmd)
+		return (0);
 	ignore_redirect(list);
 	if (syntax_error(cmd) == 1)
 		return (error_code(2, 1, list));
@@ -39,7 +41,7 @@ int	check_parsing(char *cmd, t_list *list)
 			gets_path(list, data);
 		if (check_errors(cmd, list) == 1)
 			return (1);
-		if (check_valid_cmd(cmd, data, list) == EXIT_FAILURE)
+		if (cmd && data->cmd && check_valid_cmd(cmd, data, list) == EXIT_FAILURE)
 		{
 			printf("%s: command not found\n", data->cmd[0]);
 			return (error_code(127, 1, list));

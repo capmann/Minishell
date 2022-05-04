@@ -50,7 +50,7 @@ int	get_redirect(char *cmd, t_data *data)
 	redirect[0] = 0;
 	redirect[1] = 0;
 	redirect[2] = 0;
-	while (cmd[++i])
+	while (cmd && cmd[++i])
 	{
 		if (cmd[i] == '<')
 			redirect[0] = 1;

@@ -49,7 +49,8 @@ SRCS	=	./main.c\
 			./srcs/execution/execution.c\
 			./srcs/env/builtins_utils.c\
 			./srcs/libft/split_utils.c\
-			./srcs/execution/signal_2.c
+			./srcs/execution/signal_2.c\
+			./srcs/env/builtins_utils_2.c
 
 OBJS	=	${SRCS:.c=.o}
 

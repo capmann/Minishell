@@ -18,7 +18,7 @@ t_data	*fill_data(char *cmd, t_data *data, char **tab)
 
 	i = 0;
 	data->cmd = tab;
-	while (data->cmd[i])
+	while (data->cmd && data->cmd[i])
 		i++;
 	data->nb_args = i;
 	data->redirect = get_redirect(cmd, data);
@@ -60,7 +60,7 @@ char	**get_command(char *cmd, t_data *data)
 	i = skip_redirect(cmd);
 	tab = ft_split(cmd, ' ', i, 0);
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		tab[i] = clear_tab(tab[i]);
 		i++;

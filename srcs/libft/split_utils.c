@@ -67,12 +67,11 @@ int	handling_quotes(char *s, int n, int mode)
 
 	if (s && is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && ++n)
 	{
-		quote = is_quote(s[n - 1]);
+		quote = is_closed_quotes(s, n - 1);
 		while (s[n] && s[n] != quote)
 			n++;
 		while (s[n] && s[n] == ' ')
 			n++;
-		n--;
 	}
 	return (n);
 }

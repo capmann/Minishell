@@ -73,7 +73,7 @@ char	*access_path(char **tmp_path, char *tmp, t_data *data)
 	int	i;
 
 	i = -1;
-	while (tmp_path[++i])
+	while (tmp_path && tmp_path[++i])
 	{
 		tmp = ft_strcat(tmp_path[i], data->cmd[0]);
 		if (tmp && access(tmp, F_OK) == 0 && access(tmp, X_OK) == 0)

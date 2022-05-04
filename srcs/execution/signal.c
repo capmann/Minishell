@@ -23,6 +23,7 @@ void	sighandler(int signum)
 
 	if (signum == SIGQUIT)
 	{
+		g_pid = 131;
 		ft_putstr_fd("\b\b  \b\b", 1);
 		tcgetattr(0, &termios_new);
 		tcgetattr(0, &termios_old);
@@ -46,9 +47,9 @@ void	set_sigaction(int sigh)
 	if (!sigh)
 		act.sa_handler = sighandler;
 	else if (sigh == 1)
-		act.sa_handler = SIG_DFL;
-	else
 		act.sa_handler = sigign;
+	else
+		act.sa_handler = sig_heredoc;
 	sigaction(SIGQUIT, &act, NULL);
 	sigaction(SIGINT, &act, NULL);
 }

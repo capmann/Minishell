@@ -73,7 +73,7 @@ char	*gets_path(t_list *list, t_data *data)
 	tmp_path = NULL;
 	tmp = NULL;
 	env = list->first;
-	if (cmd_digit(data->cmd[0]) == EXIT_FAILURE)
+	if (!data->cmd || cmd_digit(data->cmd[0]) == EXIT_FAILURE)
 		return (NULL);
 	while (env && ft_strncmp("PATH=", env->env_var, 5))
 		env = env->next;

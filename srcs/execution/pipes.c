@@ -82,12 +82,13 @@ void	run_heredoc(t_data *data)
 
 	pipe(pdes);
 	child = fork();
-	// disable_signals(child);
 	if (child == -1)
 		return ;
 	else if (child == 0)
 	{
 		doc = heredoc(data);
+		if (g_pid == 130)
+			exit(g_pid);
 		dup2(pdes[1], STDOUT_FILENO);
 		close(pdes[0]);
 		ft_putstr_fd(doc, 1);
@@ -97,6 +98,8 @@ void	run_heredoc(t_data *data)
 	}
 	else
 	{
+		if (g_pid == 130)
+			exit(g_pid);
 		dup2(pdes[0], STDIN_FILENO);
 		close(pdes[1]);
 		waitpid(child, &exit_status, 0);
@@ -111,6 +114,7 @@ char	*heredoc(t_data *data)
 	char	*test;
 
 	output = NULL;
+	set_sigaction(3);
 	tmp = readline("> ");
 	len = check_biggest(tmp, data->infile);
 	while (ft_strncmp(tmp, data->infile, len) != 0)

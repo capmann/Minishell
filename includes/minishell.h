@@ -120,6 +120,7 @@ char	*extract_word(const char *s, char c, int mode);
 char	*move_tmp(char *tmp, int quote);
 int		handling_quotes(char *s, int n, int mode);
 int		check_quote(char *tab, int pos, char c);
+int		skip_n(char *s);
 
 //lexical analysis functions
 int		is_quote(char c);
@@ -211,6 +212,8 @@ int		handle_EOT(char *cmd);
 int		verify_cmd(char *cmd);
 void	disable_signals(int fork);
 void	sigign(int signum);
+void	sig_heredoc(int signum);
+void	signals_heredoc(int fork);
 
 //pipe implementation
 void	run_shell(t_list *list);

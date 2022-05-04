@@ -34,7 +34,7 @@ void	run_builtin(t_data *data, t_list *list)
 
 int	is_builtin(t_data *data, t_list *list)
 {
-	if (!data || !list)
+	if (!data || !data->cmd || !list)
 		return (0);
 	if (ft_strncmp(data->cmd[0], "echo", 4) == 0
 		|| ft_strncmp(data->cmd[0], "cd", 2) == 0
@@ -57,7 +57,7 @@ void	exec(t_list *list, t_data *data)
 	exit_status = -1;
 	pipes = list->pipe;
 	list->prev_pdes = -1;
-	while (data)
+	while (data && data->cmd)
 	{
 		if (data->cmd[0] == 0 && data->next && list->pipe-- && pipes--)
 			data = data->next;

@@ -49,15 +49,15 @@ int	check_errors(char *cmd, t_list *list)
 	t_data	*data;
 
 	data = list->prems;
-	if (cmd[0] == '$' && !cmd[1])
+	if (cmd && cmd[0] == '$' && !cmd[1])
 		return (0);
-	if (data->cmd[0] == NULL && data->next == NULL)
+	if (data->cmd && data->cmd[0] == NULL && data->next == NULL)
 		return (error_code(0, 1, list));
-	if (check_files(cmd) == -1)
+	if (cmd && check_files(cmd) == -1)
 		return (error_code(1, 1, list));
 	while (data)
 	{
-		if (perm_denied(data->cmd[0]) == 1)
+		if (data->cmd && perm_denied(data->cmd[0]) == 1)
 			return (error_code(126, 1, list));
 		data = data->next;
 	}

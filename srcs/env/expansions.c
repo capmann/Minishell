@@ -20,7 +20,7 @@ void	get_expansion(t_data *data, t_list *list)
 	char	*var;
 
 	i = -1;
-	if (!data || ft_strlen(data->cmd[0]) == 0)
+	if (!data || !data->cmd || ft_strlen(data->cmd[0]) == 0)
 		return ;
 	while (data->cmd[++i])
 	{
