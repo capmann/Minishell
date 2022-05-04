@@ -116,6 +116,8 @@ int		cmd_digit(char *cmd);
 t_split	*mini_split(t_split *split, char c, int mode, int quote);
 char	*extract_word(const char *s, char c, int mode);
 char	*move_tmp(char *tmp, int quote);
+int		handling_quotes(char *s, int n, int mode);
+int		check_quote(char *tab, int pos, char c);
 
 //lexical analysis functions
 int		is_quote(char c);
@@ -232,6 +234,7 @@ char	*access_path(char **tmp_path, char *tmp, t_data *data);
 void	exec(t_list *list, t_data *data);
 void	child_process(t_list *list, t_data *data, int *pdes);
 void	parent_process(t_list *list, int *pdes);
+void	execute_cmd(t_list *list, t_data *data);
 
 //debug
 void	print_data(t_data *data);
