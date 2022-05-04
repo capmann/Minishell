@@ -107,6 +107,7 @@ int	check_quote(char *tab, int pos, char c)
 			secure_free((void **)&tab);
 			return (quote);
 		}
+		i = j - 1;
 	}
 	secure_free((void **)&tab);
 	return (EXIT_SUCCESS);

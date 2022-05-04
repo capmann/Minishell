@@ -50,6 +50,8 @@ typedef struct s_data {
 	int				heredoc;
 	int				nb_args;
 	pid_t			pid;
+	int				std_in;
+	int				std_out;
 	struct s_data	*next;
 }				t_data;
 

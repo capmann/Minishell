@@ -24,13 +24,16 @@ pid_t	run_pipe(t_data *data, t_list *list, int *pdes)
 		return (pid);
 	else if (pid == 0)
 		child_process(list, data, pdes);
-	if (list->pipe > 0)
+	else
 	{
-		close(pdes[1]);
-		if (list->prev_pdes != -1)
-			close(list->prev_pdes);
-		list->prev_pdes = pdes[0];
-		list->pipe--;
+		if (list->pipe > 0)
+		{
+			close(pdes[1]);
+			if (list->prev_pdes != -1)
+				close(list->prev_pdes);
+			list->prev_pdes = pdes[0];
+			list->pipe--;
+		}
 	}
 	return (pid);
 }
@@ -48,10 +51,7 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 	if (list->pipe == 0 && list->prev_pdes != -1)
 		dup2(list->prev_pdes, STDIN_FILENO);
 	if (data->heredoc == 1)
-	{
 		run_heredoc(data);
-		set_sigaction(1);
-	}
 	run_redir(data);
 	execute_cmd(list, data);
 	exit(g_pid);
@@ -76,28 +76,31 @@ void	execute_cmd(t_list *list, t_data *data)
 void	run_heredoc(t_data *data)
 {
 	pid_t		child;
+	int			exit_status;
 	int			pdes[2];
 	char		*doc;
 
-	doc = heredoc(data);
 	pipe(pdes);
 	child = fork();
-	disable_signals(child);
+	// disable_signals(child);
 	if (child == -1)
 		return ;
 	else if (child == 0)
 	{
+		doc = heredoc(data);
 		dup2(pdes[1], STDOUT_FILENO);
 		close(pdes[0]);
 		ft_putstr_fd(doc, 1);
 		close(pdes[1]);
+		secure_free((void **)&doc);
 		exit(g_pid);
 	}
-	dup2(pdes[0], STDIN_FILENO);
-	close(pdes[1]);
-	secure_free((void **)&doc);
-	wait(NULL);
-	return ;
+	else
+	{
+		dup2(pdes[0], STDIN_FILENO);
+		close(pdes[1]);
+		waitpid(child, &exit_status, 0);
+	}
 }
 
 char	*heredoc(t_data *data)
