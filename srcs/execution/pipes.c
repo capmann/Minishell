@@ -48,7 +48,10 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 	if (list->pipe == 0 && list->prev_pdes != -1)
 		dup2(list->prev_pdes, STDIN_FILENO);
 	if (data->heredoc == 1)
+	{
 		run_heredoc(data);
+		set_sigaction(1);
+	}
 	run_redir(data);
 	execute_cmd(list, data);
 	exit(g_pid);
@@ -79,6 +82,7 @@ void	run_heredoc(t_data *data)
 	doc = heredoc(data);
 	pipe(pdes);
 	child = fork();
+	disable_signals(child);
 	if (child == -1)
 		return ;
 	else if (child == 0)

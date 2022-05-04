@@ -70,5 +70,6 @@ void	sig_backslash(int signum)
 void	sig_quit(int signum)
 {
 	(void)signum;
+	ft_putstr_fd("exit\n", 1);
 	exit(g_pid);
 }

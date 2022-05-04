@@ -16,7 +16,10 @@ void	sigign(int signum)
 {
 	(void)signum;
 	if (signum == SIGINT)
+	{
+		g_pid = 130;
 		ft_putstr_fd("\n", 1);
+	}
 }
 
 void	disable_signals(int fork)

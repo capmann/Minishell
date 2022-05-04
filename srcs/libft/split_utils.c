@@ -53,7 +53,7 @@ int	is_digit_arg(char *s)
 	int	i;
 
 	i = -1;
-	while (s[++i])
+	while (s && s[++i])
 	{
 		if (!ft_isdigit(s[i]))
 			return (0);
@@ -65,7 +65,7 @@ int	handling_quotes(char *s, int n, int mode)
 {
 	int	quote;
 
-	if (is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && ++n)
+	if (s && is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && ++n)
 	{
 		quote = is_quote(s[n - 1]);
 		while (s[n] && s[n] != quote)

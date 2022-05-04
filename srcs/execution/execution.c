@@ -54,7 +54,7 @@ void	exec(t_list *list, t_data *data)
 	int		pdes[2];
 	int		pipes;
 
-	exit_status = 0;
+	exit_status = -1;
 	pipes = list->pipe;
 	list->prev_pdes = -1;
 	while (data)
