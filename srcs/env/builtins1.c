@@ -40,7 +40,7 @@ void	unset_var(t_list *list, t_env *env, char *cmd, t_env *tmp)
 		len = check_biggest(env->name, cmd);
 		len_n = check_biggest(env->next->name, cmd);
 		if (env == list->first && \
-			((len > 1 && ft_strncmp(env->name, cmd, len) == 0)
+			((len > 1 && ft_strncmp(env->name, cmd, len - 1) == 0)
 				|| (len == 1 && ft_strncmp(env->name, cmd, len) == 0)))
 		{
 			list->first = env->next;
