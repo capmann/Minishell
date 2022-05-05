@@ -6,11 +6,11 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 18:48:56 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/28 21:29:43 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:55:39 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
 pid_t	g_pid;
 
