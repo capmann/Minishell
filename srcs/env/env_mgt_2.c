@@ -42,10 +42,14 @@ void	check_var_exist(t_list *list, char *tmp, char *cmd)
 	t_env	*check;
 	t_env	*check_tmp;
 	char	*str;
+	int		len;
 
 	check = list->first;
 	check_tmp = NULL;
-	str = ft_substr(cmd, 0, tmp - cmd + 1);
+	len = tmp - cmd + 1;
+	if (tmp == NULL)
+		len = ft_strlen(cmd);
+	str = ft_substr(cmd, 0, len);
 	unset_var(list, check, str, check_tmp);
 	secure_free((void **)&str);
 }

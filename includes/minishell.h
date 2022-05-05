@@ -183,6 +183,7 @@ void	ft_free_list(t_list *liste);
 void	print_export(t_list *list);
 void	update_pwd(t_list *list);
 char	*cd_args(t_list *list, char *str);
+int		check_exp(char *cmd);
 
 //redirections
 void	run_redir(t_data *args);

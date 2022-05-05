@@ -24,9 +24,10 @@ size_t	get_n_word(const char *s, char c, int n, int mode)
 			while (s[n] && (s[n] == '<' || s[n] == '>' || s[n] == ' '))
 				n++;
 		if (n && ((s[n] == c && s[n - 1] != c && s[n + 1])
-				|| (s[n] != c && s[n + 1] == '\0')))
+				|| (s[n] && s[n] != c && s[n + 1] == '\0')))
 			i++;
-		n++;
+		if (s[n])
+			n++;
 	}
 	if (s[n - 1] == c)
 		i++;

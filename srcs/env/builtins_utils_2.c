@@ -38,3 +38,23 @@ void	mini_echo(t_data *data)
 	ft_putstr_fd(data->cmd[i], 1);
 	ft_putchar_fd('\n', 1);
 }
+
+int	check_exp(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd)
+		return (0);
+	while (cmd[i] && cmd[i] != '$')
+		i++;
+	if (!cmd[i])
+		return (0);
+	i += 1;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '\t'
+			|| is_quote(cmd[i]) == EXIT_SUCCESS))
+		i++;
+	if (cmd[i])
+		return (1);
+	return (0);
+}
