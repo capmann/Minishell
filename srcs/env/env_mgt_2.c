@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_mgt_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarteau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:37:40 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/23 21:37:42 by cmarteau         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:24 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ char	*cd_args(t_list *list, char *str)
 	{
 		if (env->value)
 			return (env->value);
-		g_pid = 0;
+		g_exit_code = 0;
 		return (NULL);
 	}
 	ft_putstr_fd("cd: HOME not set\n", 1);
-	g_pid = 1;
+	g_exit_code = 1;
 	return (NULL);
 }
 

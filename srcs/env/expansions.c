@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:11:50 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/30 00:44:58 by cmarteau         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:30 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*find_env_var(t_list *list, char *str)
 
 	env = list->first;
 	if (str && str[0] == '?')
-		return (ft_itoa(g_pid));
+		return (ft_itoa(g_exit_code));
 	while (env)
 	{
 		if (ft_strncmp(env->name, str, ft_strlen(env->name) - 1) == 0)

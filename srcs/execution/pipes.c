@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:36:20 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/05 20:42:27 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:44 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 		run_heredoc(data);
 	run_redir(data);
 	execute_cmd(list, data);
-	exit(g_pid);
+	exit(g_exit_code);
 }
 
 void	execute_cmd(t_list *list, t_data *data)
@@ -64,7 +64,7 @@ void	execute_cmd(t_list *list, t_data *data)
 		execve(data->path, data->cmd, NULL);
 		ft_putstr_fd(data->cmd[0], 1);
 		ft_putstr_fd(": Permission denied\n", 1);
-		g_pid = 2;
+		g_exit_code = 2;
 	}
 	run_builtin(data, list);
 	if (list->pipe == 0 && list->prev_pdes != -1)
@@ -82,6 +82,7 @@ void	run_heredoc(t_data *data)
 
 	pipe(pdes);
 	child = fork();
+	signal(SIGINT, inthandler2);
 	doc = NULL;
 	if (child == -1)
 		return ;
@@ -89,13 +90,12 @@ void	run_heredoc(t_data *data)
 		mini_heredoc(data, doc, pdes);
 	else
 	{
-		if (g_pid == 130)
-			exit(g_pid);
+		if (g_exit_code == 130)
+			exit(g_exit_code);
 		dup2(pdes[0], STDIN_FILENO);
 		close(pdes[1]);
 		waitpid(child, &exit_status, 0);
 	}
-	// close(STDIN_FILENO);
 }
 
 char	*heredoc(t_data *data)

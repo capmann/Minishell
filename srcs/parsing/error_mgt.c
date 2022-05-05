@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:37:10 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/26 17:37:20 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:53 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	invalid_identifier(t_data *data, t_list *list, int i)
 		|| !ft_isalpha(data->cmd[i][0]))
 	{
 		ft_putstr_fd("export: not a valid identifier\n", 1);
-		g_pid = 1;
+		g_exit_code = 1;
 		if (!data->cmd[i + 1])
 			return (-1);
 		i += 1;

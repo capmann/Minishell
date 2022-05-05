@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:35:06 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 18:46:53 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:11 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SIGINT  2
 # define SIGQUIT 3
 
-extern pid_t	g_pid;
+extern pid_t	g_exit_code;
 
 typedef struct s_data {
 	char			**cmd;
@@ -216,6 +216,7 @@ void	disable_signals(int fork);
 void	sigign(int signum);
 void	sig_heredoc(int signum);
 void	signals_heredoc(int fork);
+void	inthandler2(int sig);
 
 //pipe implementation
 void	run_shell(t_list *list);

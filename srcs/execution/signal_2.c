@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarteau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:01:08 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/03 20:01:11 by cmarteau         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:47 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	sigign(int signum)
 	(void)signum;
 	if (signum == SIGINT)
 	{
-		g_pid = 130;
+		g_exit_code = 130;
 		ft_putstr_fd("\n", 1);
 	}
 	if (signum == SIGQUIT)
 	{
-		g_pid = 131;
+		g_exit_code = 131;
 		ft_putstr_fd("Quit (core dumped)\n", 1);
 	}
 }
@@ -56,7 +56,7 @@ void	sig_heredoc(int signum)
 	(void)signum;
 	if (signum == SIGINT)
 	{
-		g_pid = 130;
-		exit(g_pid);
+		g_exit_code = 130;
+		exit(g_exit_code);
 	}
 }
