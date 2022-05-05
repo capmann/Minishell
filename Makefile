@@ -6,11 +6,11 @@
 #    By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 15:58:43 by dcyprien          #+#    #+#              #
-#    Updated: 2022/04/28 19:47:21 by dcyprien         ###   ########.fr        #
+#    Updated: 2022/05/05 18:53:40 by dcyprien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS	=	./main.c\
+SRCS	=	./srcs/main.c\
 			./srcs/parsing/malloc_utils.c\
 			./srcs/parsing/parsing.c\
 			./srcs/libft/ft_substr.c\
@@ -50,7 +50,8 @@ SRCS	=	./main.c\
 			./srcs/env/builtins_utils.c\
 			./srcs/libft/split_utils.c\
 			./srcs/execution/signal_2.c\
-			./srcs/env/builtins_utils_2.c
+			./srcs/env/builtins_utils_2.c\
+			./srcs/execution/pipes_utils.c
 
 OBJS	=	${SRCS:.c=.o}
 

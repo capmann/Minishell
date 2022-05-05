@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarteau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:36:20 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/23 21:36:22 by cmarteau         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:48:14 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,11 @@ void	run_heredoc(t_data *data)
 
 	pipe(pdes);
 	child = fork();
+	doc = NULL;
 	if (child == -1)
 		return ;
 	else if (child == 0)
-	{
-		doc = heredoc(data);
-		if (g_pid == 130)
-			exit(g_pid);
-		dup2(pdes[1], STDOUT_FILENO);
-		close(pdes[0]);
-		ft_putstr_fd(doc, 1);
-		close(pdes[1]);
-		secure_free((void **)&doc);
-		exit(g_pid);
-	}
+		mini_heredoc(data, doc, pdes);
 	else
 	{
 		if (g_pid == 130)

@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:35:06 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 17:52:46 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:46:53 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ char	*gets_path(t_list *list, t_data *data);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	*heredoc(t_data *data);
+void	mini_heredoc(t_data *data, char *doc, int *pdes);
 char	*last_redir(char *cmd, char c);
 int		check_file_exist(char *file);
 int		count_redir(char *cmd, char c);
