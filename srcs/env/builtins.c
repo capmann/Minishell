@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:25:58 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 20:55:02 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:21 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	my_cd(t_data *data, t_list *list)
 	else if (data->cmd[2])
 	{
 		ft_putstr_fd("cd: too many arguments\n", 1);
-		g_pid = 1;
+		g_exit_code = 1;
 		return ;
 	}
 	else if (data->cmd[1][0] == '-')
@@ -59,7 +59,7 @@ void	my_cd(t_data *data, t_list *list)
 		path = data->cmd[1];
 	if (chdir(path) == -1)
 	{
-		g_pid = 1;
+		g_exit_code = 1;
 		perror("cd");
 	}
 	update_pwd(list);
@@ -101,18 +101,18 @@ void	my_exit(t_list *list, t_data *data)
 		if (data->cmd[1] && data->cmd[2])
 		{
 			ft_putstr_fd("exit: too many arguments\n", 1);
-			g_pid = 1;
+			g_exit_code = 1;
 			return ;
 		}
 		else if (!is_digit_arg(data->cmd[1]))
 		{
 			ft_putstr_fd("exit: numeric argument required\n", 1);
-			g_pid = 2;
+			g_exit_code = 2;
 		}
 		else if (data->cmd[1] && data->cmd[1][0] == '-' && !data->cmd[1][1])
-			g_pid = 255;
+			g_exit_code = 255;
 		else if (data->cmd[1])
-			g_pid = ft_atoi(data->cmd[1]);
+			g_exit_code = ft_atoi(data->cmd[1]);
 	}
 	ft_free_data(list);
 	if (list->prev_pdes)
@@ -120,5 +120,5 @@ void	my_exit(t_list *list, t_data *data)
 		close(list->prev_pdes);
 		close(STDIN_FILENO);
 	}
-	exit(g_pid);
+	exit(g_exit_code);
 }

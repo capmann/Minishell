@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:45:23 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/13 16:32:41 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:51 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sighandler(int signum)
 
 	if (signum == SIGQUIT)
 	{
-		g_pid = 131;
+		g_exit_code = 131;
 		ft_putstr_fd("\b\b  \b\b", 1);
 		tcgetattr(0, &termios_new);
 		tcgetattr(0, &termios_old);
@@ -33,7 +33,7 @@ void	sighandler(int signum)
 	}
 	if (signum == SIGINT)
 	{
-		g_pid = 130;
+		g_exit_code = 130;
 		ft_show_prompt();
 	}
 }
@@ -62,15 +62,19 @@ void	ft_show_prompt(void)
 	rl_redisplay();
 }
 
-void	sig_backslash(int signum)
+void	inthandler2(int sig)
 {
-	(void)signum;
-	ft_show_prompt();
+	int	stdin_copy;
+
+	stdin_copy = dup(0);
+	(void)sig;
+	g_exit_code = 130;
+	exit(g_exit_code);
 }
 
 void	sig_quit(int signum)
 {
 	(void)signum;
 	ft_putstr_fd("exit\n", 1);
-	exit(g_pid);
+	exit(g_exit_code);
 }

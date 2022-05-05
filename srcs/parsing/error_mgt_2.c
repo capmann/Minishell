@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:20:04 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/05 17:48:52 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:52 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	error_code(int exit_code, int error_code, t_list *list)
 {
 	(void)list;
-	g_pid = exit_code;
+	g_exit_code = exit_code;
 	if (exit_code == 126)
 		ft_putstr_fd("Permission denied\n", 1);
 	if (exit_code == 2)

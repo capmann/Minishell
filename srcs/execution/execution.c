@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:36:46 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/28 16:16:17 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:33 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	exec(t_list *list, t_data *data)
 		data = data->next;
 	}
 	if (WIFEXITED(exit_status))
-		g_pid = WEXITSTATUS(exit_status);
+		g_exit_code = WEXITSTATUS(exit_status);
 	return ;
 }
 
@@ -88,7 +88,7 @@ void	run_shell(t_list *list)
 	if (data->redirect == 0 && list->pipe == 0
 		&& is_builtin(data, list) == 1)
 	{
-		g_pid = 0;
+		g_exit_code = 0;
 		run_builtin(data, list);
 	}
 	else

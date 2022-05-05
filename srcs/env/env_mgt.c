@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:35:09 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/10 01:35:40 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 22:53:25 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_list	*init(char **envp)
 	ft_memset(list, 0, sizeof(*list));
 	list->first = NULL;
 	list->prems = NULL;
-	g_pid = 0;
+	g_exit_code = 0;
 	list->pipe = 0;
 	duplicate_env(envp, list);
 	return (list);
