@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:25:58 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 18:23:03 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:55:02 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	my_echo(t_data *data)
 {
 	int	i;
 
-	if (ft_strncmp(data->cmd[1], "-n", ft_strlen(data->cmd[1])) == 0
+	if (ft_strncmp(data->cmd[1], "-n", 2) == 0
 		&& skip_n(data->cmd[1]) == 1)
 	{
 		if (data->nb_args == 2)
 			return ;
 		i = 1;
-		while (ft_strncmp(data->cmd[i], "-n", ft_strlen(data->cmd[i])) == 0
+		while (ft_strncmp(data->cmd[i], "-n", 2) == 0
 			&& skip_n(data->cmd[i]) == 1)
 			i++;
 		while (i < data->nb_args - 1)
