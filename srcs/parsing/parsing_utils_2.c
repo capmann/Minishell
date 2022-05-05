@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 23:55:40 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/28 17:32:00 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:27:05 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*clear_tab(char *str)
 	}
 	k = ft_strlen(tmp) - 1;
 	i = 0;
-	while (tmp[k] && (tmp[k] == ' ' || tmp[k] == '\t') && k--)
+	while (tmp && tmp[k] && (tmp[k] == ' ' || tmp[k] == '\t') && k--)
 		i++;
 	new = ft_substr(tmp, 0, ft_strlen(tmp) - i);
 	secure_free((void **)&tmp);

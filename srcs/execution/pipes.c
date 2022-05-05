@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:36:20 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/05 18:48:14 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:42:27 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	run_heredoc(t_data *data)
 		close(pdes[1]);
 		waitpid(child, &exit_status, 0);
 	}
+	// close(STDIN_FILENO);
 }
 
 char	*heredoc(t_data *data)

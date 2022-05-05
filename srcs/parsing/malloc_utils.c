@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 16:50:56 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/26 18:29:09 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 19:28:03 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	free_malloc(char **cmd, char *path, int mode)
 	i = -1;
 	if (mode == 1)
 	{
-		if (!cmd[0] && cmd[1])
+		if (cmd && !cmd[0] && cmd[1])
 		{
 			secure_free((void **)&cmd[0]);
 			i = 0;
 		}
-		while (cmd[++i])
+		while (cmd && cmd[++i])
 			secure_free((void **)&cmd[i]);
 		secure_free((void **)&cmd);
 	}
