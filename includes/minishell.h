@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:35:06 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/28 19:51:20 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:52:46 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,8 @@ char	*join_pieces(char **b, char *c, char *var);
 int		check_biggest(char *s1, char *s2);
 void	print_echo(char *cmd);
 char	*ft_strchr_exp(const char *s, int c);
-int		is_digit_arg(char *s);	
+int		is_digit_arg(char *s);
+void	mini_echo(t_data *data);
 
 //env management
 t_list	*init(char **envp);

@@ -56,8 +56,8 @@ int	check_valid_cmd(char *cmd, t_data *data, t_list *list)
 			return (EXIT_FAILURE);
 		}
 	}
-	if (!data->path && data->cmd[0][0] != '>' && data->cmd[0][0] != '<'
-		&& data->cmd[0][0] != '.')
+	if (!data->path && data->cmd[0] && data->cmd[0][0] != '>'
+		&& data->cmd[0][0] != '<' && data->cmd[0][0] != '.')
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -59,7 +59,7 @@ void	child_process(t_list *list, t_data *data, int *pdes)
 
 void	execute_cmd(t_list *list, t_data *data)
 {
-	if (is_builtin(data, list) == 0)
+	if (is_builtin(data, list) == 0 && list->prems->cmd[0])
 	{
 		execve(data->path, data->cmd, NULL);
 		ft_putstr_fd(data->cmd[0], 1);

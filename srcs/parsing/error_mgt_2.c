@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:20:04 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/28 16:05:30 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:48:52 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	check_parsing(char *cmd, t_list *list)
 			gets_path(list, data);
 		if (check_errors(cmd, list) == 1)
 			return (1);
-		if (cmd && data->cmd && check_valid_cmd(cmd, data, list) == EXIT_FAILURE)
+		if (cmd && data->cmd
+			&& check_valid_cmd(cmd, data, list) == EXIT_FAILURE)
 		{
 			printf("%s: command not found\n", data->cmd[0]);
 			return (error_code(127, 1, list));

@@ -37,7 +37,7 @@ int	check_file_exist(char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("file");
+		perror(file);
 		return (fd);
 	}
 	close (fd);
