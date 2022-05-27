@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 18:03:27 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/28 19:39:11 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/06 23:40:12 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_valid_cmd(char *cmd, t_data *data, t_list *list)
 	if (!data->path && data->cmd[0] && data->cmd[0][0] != '>'
 		&& data->cmd[0][0] != '<' && data->cmd[0][0] != '.')
 		return (EXIT_FAILURE);
+	if (data->cmd[0] && data->cmd[0][0] == '.' && data->cmd[0][1] == '.')
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -88,9 +90,11 @@ t_data	*parsing(char *cmd, t_list *list)
 {
 	if (!cmd)
 		sig_quit(SIGQUIT);
+	if (ft_strlen(cmd) > 0)
+		add_history(cmd);
 	if (verify_cmd(cmd) == EXIT_FAILURE)
 		return (NULL);
-	if (null_pipe(cmd) == EXIT_FAILURE)
+	if (null_pipe(cmd) == EXIT_FAILURE || null_redir(cmd) == EXIT_FAILURE)
 	{
 		error_code(2, 0, list);
 		return (NULL);

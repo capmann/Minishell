@@ -35,7 +35,7 @@ void	mini_echo(t_data *data)
 		if (i != data->nb_args - 1)
 			ft_putchar_fd(' ', 1);
 	}
-	ft_putstr_fd(data->cmd[i], 1);
+	print_echo(data->cmd[i]);
 	ft_putchar_fd('\n', 1);
 }
 
@@ -57,4 +57,38 @@ int	check_exp(char *cmd)
 	if (cmd[i])
 		return (1);
 	return (0);
+}
+
+int	is_digit_arg(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s && s[++i])
+	{
+		if (s[0] == '-')
+			s++;
+		if (!ft_isdigit(s[i]))
+			return (0);
+	}
+	return (1);
+}
+
+int	mini_unset(char *cmd, t_env *env, int len, int mode)
+{
+	if (mode == 1)
+	{
+		if ((src_idx(cmd, '=') >= 0 && src_idx(env->next->name, '=') == -1)
+			|| (src_idx(cmd, '=') == -1 && src_idx(env->next->name, '=') >= 0))
+			return (len - 1);
+		return (len);
+	}
+	if (mode == 2)
+	{
+		if ((src_idx(cmd, '=') >= 0 && src_idx(env->name, '=') == -1)
+			|| (src_idx(cmd, '=') == -1 && src_idx(env->name, '=') >= 0))
+			return (len - 1);
+		return (len);
+	}
+	return (len);
 }

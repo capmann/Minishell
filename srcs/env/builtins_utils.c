@@ -19,8 +19,6 @@ void	print_echo(char *cmd)
 	k = 0;
 	while (cmd && cmd[k])
 	{
-		if (cmd[k] == ' ' && k == 0)
-			k++;
 		ft_putchar_fd(cmd[k], 1);
 		if (cmd[k])
 			k++;
@@ -33,26 +31,24 @@ char	*skip_spaces(char *cmd)
 	int		k;
 	char	*str;
 
-	i = -1;
+	i = 0;
 	k = -1;
-	str = ft_strdup(cmd);
 	if (!cmd)
 		return (NULL);
-	while (cmd[++i])
+	str = ft_strdup(cmd);
+	while (cmd[i])
 	{
+		while (cmd[i] && cmd[i] == ' ')
+			i++;
 		while (cmd[i] && cmd[i] != ' ')
 			str[++k] = cmd[i++];
-		while (cmd[i])
-		{
-			if (cmd[i] != ' ')
-				break ;
-			i++;
-		}
-		if (--i != (int)ft_strlen(cmd) - 1)
-			str[++k] = ' ';
+		if (cmd[i] && cmd[i] == ' ')
+			str[++k] = cmd[i++];
 	}
-	str[++k] = 0;
-	secure_free((void **)&cmd);
+	while (k >= 0 && str[k] == ' ')
+		str[k--] = 0;
+	str[++k] = '\0';
+	secure_free((void *)&cmd);
 	return (str);
 }
 

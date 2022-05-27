@@ -14,21 +14,21 @@
 
 void	run_builtin(t_data *data, t_list *list)
 {
-	if (ft_strncmp(data->cmd[0], "echo", 4) == 0)
+	if (ft_strncmp(data->cmd[0], "echo", 5) == 0)
 		my_echo(data);
-	else if (ft_strncmp(data->cmd[0], "cd", 2) == 0)
+	else if (ft_strncmp(data->cmd[0], "cd", 3) == 0)
 		my_cd(data, list);
-	else if (ft_strncmp(data->cmd[0], "pwd", 3) == 0)
+	else if (ft_strncmp(data->cmd[0], "pwd", 4) == 0)
 		my_pwd();
-	else if (ft_strncmp(data->cmd[0], "env", 3) == 0)
+	else if (ft_strncmp(data->cmd[0], "env", 4) == 0)
 		my_env(list);
-	else if (ft_strncmp(data->cmd[0], "export", 6) == 0 && data->nb_args == 1)
+	else if (ft_strncmp(data->cmd[0], "export", 7) == 0 && data->nb_args == 1)
 		my_export(list, data);
-	else if (ft_strncmp(data->cmd[0], "export", 6) == 0 && data->nb_args > 1)
+	else if (ft_strncmp(data->cmd[0], "export", 7) == 0 && data->nb_args > 1)
 		my_export_arg(data, list);
-	else if (ft_strncmp(data->cmd[0], "unset", 5) == 0)
+	else if (ft_strncmp(data->cmd[0], "unset", 6) == 0)
 		my_unset(list, data);
-	else if (ft_strncmp(data->cmd[0], "exit", 4) == 0)
+	else if (ft_strncmp(data->cmd[0], "exit", 5) == 0)
 		my_exit(list, data);
 }
 
@@ -36,13 +36,13 @@ int	is_builtin(t_data *data, t_list *list)
 {
 	if (!data || !data->cmd || !list)
 		return (0);
-	if (ft_strncmp(data->cmd[0], "echo", 4) == 0
-		|| ft_strncmp(data->cmd[0], "cd", 2) == 0
-		|| ft_strncmp(data->cmd[0], "pwd", 3) == 0
-		|| ft_strncmp(data->cmd[0], "env", 3) == 0
-		|| ft_strncmp(data->cmd[0], "export", 6) == 0
-		|| ft_strncmp(data->cmd[0], "unset", 5) == 0
-		|| ft_strncmp(data->cmd[0], "exit", 4) == 0)
+	if (ft_strncmp(data->cmd[0], "echo", 5) == 0
+		|| ft_strncmp(data->cmd[0], "cd", 3) == 0
+		|| ft_strncmp(data->cmd[0], "pwd", 4) == 0
+		|| ft_strncmp(data->cmd[0], "env", 4) == 0
+		|| ft_strncmp(data->cmd[0], "export", 7) == 0
+		|| ft_strncmp(data->cmd[0], "unset", 6) == 0
+		|| ft_strncmp(data->cmd[0], "exit", 5) == 0)
 		return (1);
 	else
 		return (0);
@@ -88,7 +88,8 @@ void	run_shell(t_list *list)
 	if (data->redirect == 0 && list->pipe == 0
 		&& is_builtin(data, list) == 1)
 	{
-		g_exit_code = 0;
+		if (ft_strncmp(data->cmd[0], "exit", 4) != 0)
+			g_exit_code = 0;
 		run_builtin(data, list);
 	}
 	else

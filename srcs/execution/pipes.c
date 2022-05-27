@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:36:20 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/05 22:53:44 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:33:43 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	execute_cmd(t_list *list, t_data *data)
 		execve(data->path, data->cmd, NULL);
 		ft_putstr_fd(data->cmd[0], 1);
 		ft_putstr_fd(": Permission denied\n", 1);
-		g_exit_code = 2;
+		g_exit_code = 126;
 	}
 	run_builtin(data, list);
 	if (list->pipe == 0 && list->prev_pdes != -1)

@@ -18,10 +18,11 @@ int	invalid_identifier(t_data *data, t_list *list, int i)
 
 	j = 0;
 	(void)list;
-	if (data->cmd[i][0] == '=' || !data->cmd[i][0]
-		|| !ft_isalpha(data->cmd[i][0]))
+	if ((data->cmd[i][0] == '=' || !data->cmd[i][0]
+		|| !ft_isalpha(data->cmd[i][0])) && data->cmd[i][0] != '_')
 	{
-		ft_putstr_fd("export: not a valid identifier\n", 1);
+		ft_putstr_fd(data->cmd[0], 1);
+		ft_putstr_fd(": not a valid identifier\n", 1);
 		g_exit_code = 1;
 		if (!data->cmd[i + 1])
 			return (-1);

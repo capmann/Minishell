@@ -31,7 +31,7 @@ void	my_echo(t_data *data)
 			if (i != data->nb_args)
 				ft_putchar_fd(' ', 1);
 		}
-		ft_putstr_fd(data->cmd[i], 1);
+		print_echo(data->cmd[i]);
 	}
 	else
 		mini_echo(data);
@@ -109,8 +109,8 @@ void	my_exit(t_list *list, t_data *data)
 			ft_putstr_fd("exit: numeric argument required\n", 1);
 			g_exit_code = 2;
 		}
-		else if (data->cmd[1] && data->cmd[1][0] == '-' && !data->cmd[1][1])
-			g_exit_code = 255;
+		else if (data->cmd[1] && data->cmd[1][0] == '-')
+			g_exit_code = g_exit_code + ft_atoi(data->cmd[1]);
 		else if (data->cmd[1])
 			g_exit_code = ft_atoi(data->cmd[1]);
 	}

@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:20:04 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/05/05 22:53:52 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/07 01:49:53 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,30 @@ int	test_file(char *tmp, int i, int k)
 	return (0);
 }
 
-int	check_null_cmd(t_data *data, int i)
+void	check_null_cmd(t_data *data)
 {
-	if (data->cmd[i] == NULL)
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (data->cmd[++i])
 	{
-		if (data->cmd[i + 1] != NULL)
+		if (data->cmd[i][0] == 0)
 		{
-			secure_free((void **)&data->cmd[i]);
-			data->cmd[i] = ft_strdup(data->cmd[i + 1]);
+			if (ft_strchr_exp(data->cmd[i], '=') != 0)
+			{
+				tmp = ft_strdup(ft_strchr_exp(data->cmd[i], '='));
+				secure_free((void **)&data->cmd[i]);
+				data->cmd[i] = ft_strdup(tmp);
+				secure_free((void **)&tmp);
+			}
+			else
+			{
+				secure_free((void **)&data->cmd[i]);
+				if (data->cmd[i + 1] != NULL)
+					data->cmd[i] = ft_strdup(data->cmd[i + 1]);
+				data->nb_args--;
+			}
 		}
-		i--;
-		data->nb_args--;
 	}
-	return (i);
 }

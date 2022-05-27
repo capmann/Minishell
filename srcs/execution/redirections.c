@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarteau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 21:10:49 by cmarteau          #+#    #+#             */
-/*   Updated: 2022/04/23 21:10:52 by cmarteau         ###   ########.fr       */
+/*   Updated: 2022/05/07 01:06:43 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	open_files(char *cmd, t_data *data)
 		i = 0;
 		while (tmp[i] != '>' && tmp[i])
 			i++;
+		data->redir_stdout = 0;
 		if (tmp[i] && tmp[i + 1] && tmp[i + 1] == '>')
 			data->redir_stdout = 1;
 		i += 1;
@@ -97,7 +98,7 @@ void	open_files(char *cmd, t_data *data)
 		k = i;
 		if (close_and_open_files(tmp, i, k, data) == -1)
 			return ;
-		tmp = ft_substr_free(tmp, i - k + 2, ft_strlen(tmp) + 1);
+		tmp = ft_substr_free(tmp, k + 1, ft_strlen(tmp) + 1);
 	}
 	secure_free((void **)&tmp);
 }
@@ -115,6 +116,8 @@ int	close_and_open_files(char *tmp, int i, int k, t_data *data)
 	else
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, 00700);
 	close(fd);
+	if (fd == -1)
+		secure_free((void *)&tmp);
 	secure_free((void **)&file);
 	return (fd);
 }

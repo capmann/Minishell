@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*   error_mgt_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 18:45:14 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 23:52:33 by dcyprien         ###   ########.fr       */
+/*   Created: 2022/05/06 23:33:57 by dcyprien          #+#    #+#             */
+/*   Updated: 2022/05/07 01:47:44 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mini_heredoc(t_data *data, char *doc, int *pdes)
+int	null_redir(char *cmd)
 {
-	doc = heredoc(data);
-	if (g_exit_code == 130)
+	int	i;
+
+	i = 0;
+	while (cmd[i])
 	{
-		close(pdes[1]);
-		close(pdes[0]);
-		exit(g_exit_code);
+		if ((cmd[i] == '<' || cmd[i] == '>')
+			&& char_in_quote(cmd, cmd[i], i) == 0)
+			while (cmd[i] && !ft_isalpha(cmd[i]))
+				i++;
+		if (cmd[i] && (cmd[i] == '>' || cmd[i] == '<')
+			&& char_in_quote(cmd, cmd[i], i) == 0)
+			return (EXIT_FAILURE);
+		i++;
 	}
-	dup2(pdes[1], STDOUT_FILENO);
-	close(pdes[0]);
-	ft_putstr_fd(doc, 1);
-	close(pdes[1]);
-	secure_free((void **)&doc);
-	exit(g_exit_code);
+	return (EXIT_SUCCESS);
 }

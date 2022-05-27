@@ -21,8 +21,12 @@ size_t	get_n_word(const char *s, char c, int n, int mode)
 	{
 		n = handling_quotes((char *)s, n, mode);
 		if (s[n] && (s[n] == '<' || s[n] == '>') && ++n)
+		{
+			if (n > 1 && s[n - 2] != ' ')
+				i++;
 			while (s[n] && (s[n] == '<' || s[n] == '>' || s[n] == ' '))
 				n++;
+		}
 		if (n && ((s[n] == c && s[n - 1] != c && s[n + 1])
 				|| (s[n] && s[n] != c && s[n + 1] == '\0')))
 			i++;
@@ -43,7 +47,7 @@ char	*extract_word(const char *s, char c, int mode)
 	end = 0;
 	if (is_quote(c) == EXIT_SUCCESS && mode != 2)
 		end++;
-	while (s[end] && s[end] != c)
+	while (s && s[end] && s[end] != c)
 	{
 		end = handling_quotes((char *)s, end, mode);
 		if ((s[end] == '>' || s[end] == '<') && ++end)
@@ -56,7 +60,8 @@ char	*extract_word(const char *s, char c, int mode)
 			while (s[end] == ' ')
 				end++;
 		}
-		end++;
+		if ((size_t)(end + 1) <= ft_strlen(s))
+			end++;
 	}
 	if (is_quote(c) == EXIT_SUCCESS && mode != 2)
 		return (quote_mgt(s, end));

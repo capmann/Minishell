@@ -48,19 +48,6 @@ char	*quote_mgt(const char *s, int end)
 	return (ft_substr(s, 0, end + 1));
 }
 
-int	is_digit_arg(char *s)
-{
-	int	i;
-
-	i = -1;
-	while (s && s[++i])
-	{
-		if (!ft_isdigit(s[i]))
-			return (0);
-	}
-	return (1);
-}
-
 int	handling_quotes(char *s, int n, int mode)
 {
 	int	quote;
@@ -68,6 +55,8 @@ int	handling_quotes(char *s, int n, int mode)
 	if (s && is_quote(s[n]) == EXIT_SUCCESS && mode != 2 && ++n)
 	{
 		quote = is_closed_quotes(s, n - 1);
+		if (quote == EXIT_FAILURE)
+			return (n);
 		while (s[n] && s[n] != quote)
 			n++;
 		while (s[n] && s[n] == ' ')

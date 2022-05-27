@@ -61,9 +61,10 @@ void	update_pwd(t_list *list)
 	char	path[255];
 
 	env = list->first;
+	tmp = NULL;
 	while (env->next && ft_strncmp("PWD", env->name, 3) != 0)
 		env = env->next;
-	if (ft_strncmp("PWD", env->name, 3) == 0)
+	if (env->name && ft_strncmp("PWD", env->name, 3) == 0)
 	{
 		tmp = ft_strdup(env->value);
 		secure_free((void **)&env->value);
@@ -73,12 +74,13 @@ void	update_pwd(t_list *list)
 	env = list->first;
 	while (env->next && ft_strncmp("OLDPWD", env->name, 6) != 0)
 		env = env->next;
-	if (ft_strncmp("OLDPWD", env->name, 6) == 0)
+	if (tmp && ft_strncmp("OLDPWD", env->name, 6) == 0)
 	{
 		secure_free((void **)&env->value);
 		env->value = ft_strdup(tmp);
 	}
-	secure_free((void **)&tmp);
+	if (tmp)
+		secure_free((void **)&tmp);
 }
 
 char	*cd_args(t_list *list, char *str)

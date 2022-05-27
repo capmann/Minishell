@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 15:35:06 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 22:53:11 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/07 01:19:55 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SIGINT  2
 # define SIGQUIT 3
 
-extern pid_t	g_exit_code;
+extern int	g_exit_code;
 
 typedef struct s_data {
 	char			**cmd;
@@ -88,7 +88,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
-char	*ft_strrchr(const char *s, int c);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**get_command(char *cmd, t_data *data);
 t_data	*parsing(char *cmd, t_list *list);
@@ -112,7 +112,7 @@ char	*verify_path(t_data *data);
 char	*clear_tab(char *str);
 char	*parsing_quotes(char *s);
 int		count_quotes(char *s);
-int		ft_search_index(const char *s, int c);
+int		src_idx(const char *s, int c);
 char	*ft_substr_free(char *s, unsigned int start, size_t len);
 int		cmd_digit(char *cmd);
 t_split	*mini_split(t_split *split, char c, int mode, int quote);
@@ -173,6 +173,7 @@ void	print_echo(char *cmd);
 char	*ft_strchr_exp(const char *s, int c);
 int		is_digit_arg(char *s);
 void	mini_echo(t_data *data);
+int		mini_unset(char *cmd, t_env *env, int len, int mode);
 
 //env management
 t_list	*init(char **envp);
@@ -180,10 +181,12 @@ t_list	*swap(t_list *list);
 int		is_sorted(t_list *list);
 void	duplicate_env(char **env, t_list *list);
 void	ft_free_list(t_list *liste);
+void	ft_free_one_list(t_env *list);
 void	print_export(t_list *list);
 void	update_pwd(t_list *list);
 char	*cd_args(t_list *list, char *str);
 int		check_exp(char *cmd);
+int		mini_expansion(char *var, t_list *list, t_data *data, int i);
 
 //redirections
 void	run_redir(t_data *args);
@@ -200,6 +203,7 @@ int		redirect_tab(int *redirect);
 int		close_and_open_files(char *tmp, int i, int k, t_data *data);
 void	ignore_redirect(t_list *list);
 void	orga_data(t_list *list);
+int		null_redir(char *cmd);
 
 //free functions
 void	free_malloc(char **cmd, char *path, int mode);
@@ -235,7 +239,7 @@ int		check_parsing(char *cmd, t_list *list);
 int		check_valid_cmd(char *cmd, t_data *data, t_list *list);
 int		pipe_errors(char *cmd, int i);
 int		test_file(char *tmp, int i, int k);
-int		check_null_cmd(t_data *data, int i);
+void	check_null_cmd(t_data *data);
 int		file_test(char *tmp, int i, int k);
 char	*access_path(char **tmp_path, char *tmp, t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:11:50 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 22:53:30 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/07 00:05:49 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,21 @@ void	get_expansion(t_data *data, t_list *list)
 	char	*var;
 
 	i = -1;
+	var = NULL;
 	if (!data || !data->cmd || ft_strlen(data->cmd[0]) == 0)
 		return ;
 	while (data->cmd[++i])
 	{
 		a = ft_strchr_exp(data->cmd[i], '$');
-		index = ft_search_index(data->cmd[i], '$');
-		if (a != 0 && (check_exp(data->cmd[i]) == 1)
-			&& ft_strlen(a) != 1 && (ft_isalnum(data->cmd[i][index + 1])
-			|| data->cmd[i][index + 1] == '"' || data->cmd[i][index + 1] == '?')
+		index = src_idx(data->cmd[i], '$');
+		if (a && check_exp(data->cmd[i]) && ft_strlen(a) != 1
+			&& (ft_isalnum(data->cmd[i][index + 1])
+			|| data->cmd[i][index + 1] == '"' || data->cmd[i][index + 1] == '?'
+			|| data->cmd[i][index + 1] == '_')
 			&& char_in_quote(data->cmd[i], '$', index) != SIMPLE_QUOTE)
-		{
-			var = cat_expansion(data->cmd[i], list);
-			secure_free((void **)&data->cmd[i]);
-			data->cmd[i] = ft_strdup(var);
-			i = check_null_cmd(data, i);
-			secure_free((void **)&var);
-		}
+			i = mini_expansion(var, list, data, i);
 	}
+	check_null_cmd(data);
 }
 
 char	*cat_expansion(char *cmd, t_list *list)
@@ -84,7 +81,7 @@ char	*remove_braces(char *d, t_list *list)
 		d = ft_substr_free(d, 1, ft_strchr_exp(d, '}') - d - 1);
 	}
 	i = 0;
-	while (d[i] && ((d[i] >= 'A' && d[i] <= 'z') || d[i] == '?'))
+	while (d[i] && ((d[i] >= 'A' && d[i] <= 'z') || d[i] == '?' || d[i] == '_'))
 		i++;
 	if (d[i])
 		c = ft_substr(d, i, ft_strlen(d) - 1);
@@ -97,17 +94,19 @@ char	*remove_braces(char *d, t_list *list)
 char	*find_env_var(t_list *list, char *str)
 {
 	t_env	*env;
+	int		len;
 
 	env = list->first;
 	if (str && str[0] == '?')
 		return (ft_itoa(g_exit_code));
 	while (env)
 	{
-		if (ft_strncmp(env->name, str, ft_strlen(env->name) - 1) == 0)
+		len = check_biggest(env->name, str);
+		if (ft_strncmp(env->name, str, len - 1) == 0)
 			return (ft_strdup(env->value));
 		env = env->next;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*join_pieces(char **b, char *c, char *var)

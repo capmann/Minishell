@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes_utils.c                                      :+:      :+:    :+:   */
+/*   builtins_utils_3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 18:45:14 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 23:52:33 by dcyprien         ###   ########.fr       */
+/*   Created: 2022/05/06 23:49:10 by dcyprien          #+#    #+#             */
+/*   Updated: 2022/05/07 00:06:15 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mini_heredoc(t_data *data, char *doc, int *pdes)
+int	mini_expansion(char *var, t_list *list, t_data *data, int i)
 {
-	doc = heredoc(data);
-	if (g_exit_code == 130)
-	{
-		close(pdes[1]);
-		close(pdes[0]);
-		exit(g_exit_code);
-	}
-	dup2(pdes[1], STDOUT_FILENO);
-	close(pdes[0]);
-	ft_putstr_fd(doc, 1);
-	close(pdes[1]);
-	secure_free((void **)&doc);
-	exit(g_exit_code);
+	var = cat_expansion(data->cmd[i], list);
+	if (char_in_quote(data->cmd[i], '$',
+			src_idx(data->cmd[i], '$')) != DOUBLE_QUOTE)
+		var = skip_spaces(var);
+	secure_free((void **)&data->cmd[i]);
+	data->cmd[i] = ft_strdup(var);
+	secure_free((void **)&var);
+	return (i);
 }

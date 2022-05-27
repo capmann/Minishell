@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:45:23 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/05/05 22:53:51 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/05 23:42:27 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ void	ft_show_prompt(void)
 
 void	inthandler2(int sig)
 {
-	int	stdin_copy;
-
-	stdin_copy = dup(0);
 	(void)sig;
 	g_exit_code = 130;
 	exit(g_exit_code);

@@ -6,7 +6,7 @@
 /*   By: dcyprien <dcyprien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 01:25:55 by dcyprien          #+#    #+#             */
-/*   Updated: 2022/04/10 01:25:56 by dcyprien         ###   ########.fr       */
+/*   Updated: 2022/05/07 01:20:16 by dcyprien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,19 @@ void	unset_var(t_list *list, t_env *env, char *cmd, t_env *tmp)
 	{
 		len = check_biggest(env->name, cmd);
 		len_n = check_biggest(env->next->name, cmd);
-		if (env == list->first && \
-			((len > 1 && ft_strncmp(env->name, cmd, len - 1) == 0)
-				|| (len == 1 && ft_strncmp(env->name, cmd, len) == 0)))
+		len = mini_unset(cmd, env, len, 2);
+		len_n = mini_unset(cmd, env, len_n, 1);
+		if (env == list->first && ft_strncmp(env->name, cmd, len) == 0)
 		{
 			list->first = env->next;
-			secure_free((void **)&env);
+			ft_free_one_list(env);
 			break ;
 		}
-		else if ((len_n > 1 && ft_strncmp(env->next->name, cmd, len_n - 1) == 0)
-			|| (len_n == 1 && ft_strncmp(env->next->name, cmd, len_n) == 0))
+		else if (ft_strncmp(env->next->name, cmd, len_n) == 0)
 		{
 			tmp = env->next;
 			env->next = env->next->next;
-			secure_free((void **)&tmp);
+			ft_free_one_list(tmp);
 			break ;
 		}
 		env = env->next;
@@ -120,7 +119,6 @@ t_env	*create_env_var(char *tmp, char *cmd, t_env *env, t_list *list)
 	env->name = ft_substr(cmd, 0, tmp - cmd + 1);
 	env->value = ft_substr(cmd, tmp - cmd + 1, \
 		ft_strlen(cmd));
-	env->value = skip_spaces(env->value);
 	if (!env->value)
 		env->env_var = env->name;
 	else
